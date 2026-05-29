@@ -24,6 +24,10 @@ def driver():
 def test_title(driver):
     assert "Форма регистрации" in driver.title
 
+def test_button(driver):
+    btn = driver.find_element(By.ID, "submitBtn")
+    assert "Отправить" in btn.text
+
 def test_h1_text(driver):
     h1 = driver.find_element(By.ID, "title")
     assert h1.text == "Добро пожаловать!"
