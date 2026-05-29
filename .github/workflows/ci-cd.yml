@@ -6,8 +6,12 @@ on:
   pull_request:
     branches: [ main, dev ]
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -35,13 +39,20 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps: deployment.outputs.page_url }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Загружаем только текущую директорию
           path: '.'
 
       - name: Deploy to GitHub Pages
