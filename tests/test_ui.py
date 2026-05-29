@@ -26,7 +26,7 @@ def test_title(driver):
 
 def test_button(driver):
     btn = driver.find_element(By.ID, "submitBtn")
-    assert "Отправить" in btn.text
+    assert "Отправить" == btn.text
 
 def test_h1_text(driver):
     h1 = driver.find_element(By.ID, "title")
