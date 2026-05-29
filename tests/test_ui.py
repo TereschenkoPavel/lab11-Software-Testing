@@ -9,7 +9,7 @@ import os
 @pytest.fixture
 def driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless") 
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     
@@ -23,6 +23,10 @@ def driver():
 
 def test_title(driver):
     assert "Форма регистрации" in driver.title
+
+def test_button(driver):
+    btn = driver.find_element(By.ID, "submitBtn")
+    assert "Отправить" == btn.text
 
 def test_h1_text(driver):
     h1 = driver.find_element(By.ID, "title")
